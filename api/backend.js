@@ -1,1 +1,129 @@
-!function(e){var t={};function n(o){if(t[o])return t[o].exports;var r=t[o]={i:o,l:!1,exports:{}};return e[o].call(r.exports,r,r.exports,n),r.l=!0,r.exports}n.m=e,n.c=t,n.d=function(e,t,o){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:o})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var o=Object.create(null);if(n.r(o),Object.defineProperty(o,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var r in e)n.d(o,r,function(t){return e[t]}.bind(null,r));return o},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=2)}([function(e,t){e.exports=require("express")},function(e,t,n){const o=n(8).verbose();e.exports=new o.Database("customeronly1.database",e=>{e?console.log("cant connect"):console.log("connected")})},function(e,t,n){(function(e){const t=n(0),o=n(3),r=t(),s=n(4),u=n(5),i=n(6);r.set("view engine","pug"),r.set("views",e+"/views"),r.use(s({secret:"keyboard cat",resave:!1,saveUninitialized:!1,cookie:{maxAge:36e5}})),r.use(o()),r.use(u.urlencoded({extended:!1})),r.use(u.json()),r.use("/",i),r.listen(4567,()=>{console.log("server started")})}).call(this,"/")},function(e,t){e.exports=require("cors")},function(e,t){e.exports=require("express-session")},function(e,t){e.exports=require("body-parser")},function(e,t,n){const o=n(0).Router(),r=n(7),s=n(1);o.get("/",(e,t)=>{t.json({status:3})}),o.post("/",(e,t,n)=>{if(e.session.username)return t.json({status:2});n()}),o.post("/",(e,t)=>{s.get("select * from login where username=? and password=?",[e.body.username,e.body.password],(e,n)=>e||null==n?t.json({status:0}):t.json({status:1}))}),o.use(r),e.exports=o},function(e,t,n){const o=n(0).Router();n(1);o.post("/create/party/add",(e,t)=>{t.json({msg:"hi"})}),e.exports=o},function(e,t){e.exports=require("sqlite3")}]);
+!(function (e) {
+  var r = {};
+  function t(n) {
+    if (r[n]) return r[n].exports;
+    var o = (r[n] = { i: n, l: !1, exports: {} });
+    return e[n].call(o.exports, o, o.exports, t), (o.l = !0), o.exports;
+  }
+  (t.m = e),
+    (t.c = r),
+    (t.d = function (e, r, n) {
+      t.o(e, r) || Object.defineProperty(e, r, { enumerable: !0, get: n });
+    }),
+    (t.r = function (e) {
+      "undefined" != typeof Symbol &&
+        Symbol.toStringTag &&
+        Object.defineProperty(e, Symbol.toStringTag, { value: "Module" }),
+        Object.defineProperty(e, "__esModule", { value: !0 });
+    }),
+    (t.t = function (e, r) {
+      if ((1 & r && (e = t(e)), 8 & r)) return e;
+      if (4 & r && "object" == typeof e && e && e.__esModule) return e;
+      var n = Object.create(null);
+      if (
+        (t.r(n),
+        Object.defineProperty(n, "default", { enumerable: !0, value: e }),
+        2 & r && "string" != typeof e)
+      )
+        for (var o in e)
+          t.d(
+            n,
+            o,
+            function (r) {
+              return e[r];
+            }.bind(null, o)
+          );
+      return n;
+    }),
+    (t.n = function (e) {
+      var r =
+        e && e.__esModule
+          ? function () {
+              return e.default;
+            }
+          : function () {
+              return e;
+            };
+      return t.d(r, "a", r), r;
+    }),
+    (t.o = function (e, r) {
+      return Object.prototype.hasOwnProperty.call(e, r);
+    }),
+    (t.p = ""),
+    t((t.s = 2));
+})([
+  function (e, r) {
+    e.exports = require("express");
+  },
+  function (e, r, t) {
+    const n = t(8);
+    e.exports = new n("customeronly1.database", { verbose: console.log });
+  },
+  function (e, r, t) {
+    const n = t(0),
+      o = t(3),
+      s = n(),
+      u = t(4),
+      i = t(5),
+      c = t(6);
+    s.use(
+      u({
+        secret: "keyboard cat",
+        resave: !1,
+        saveUninitialized: !1,
+        cookie: { maxAge: 36e5 },
+      })
+    ),
+      s.use(o()),
+      s.use(i.urlencoded({ extended: !1 })),
+      s.use(i.json()),
+      s.use("/", c),
+      s.listen(4567, () => {
+        console.log("server started");
+      });
+  },
+  function (e, r) {
+    e.exports = require("cors");
+  },
+  function (e, r) {
+    e.exports = require("express-session");
+  },
+  function (e, r) {
+    e.exports = require("body-parser");
+  },
+  function (e, r, t) {
+    const n = t(0).Router(),
+      o = t(7),
+      s = t(1);
+    n.post("/", (e, r, t) => {
+      if (e.session.username)
+        return r.json({ status: 2, msg: "already logged in" });
+      t();
+    }),
+      n.post("/", (e, r) => {
+        const t = s
+          .prepare("select username from login where username=? and password=?")
+          .get(e.body.username, e.body.password);
+        return (
+          console.log(t),
+          t
+            ? ((e.session.username = t.username),
+              r.json({ status: 1, msg: "correct" }))
+            : r.json({ status: 0, msg: "incorrect" })
+        );
+      }),
+      n.use(o),
+      (e.exports = n);
+  },
+  function (e, r, t) {
+    const n = t(0).Router();
+    t(1);
+    n.post("/create/party/add", (e, r) => {
+      r.json({ msg: "hi" });
+    }),
+      (e.exports = n);
+  },
+  function (e, r) {
+    e.exports = require("better-sqlite3");
+  },
+]);
