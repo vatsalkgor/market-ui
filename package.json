@@ -34,7 +34,7 @@
     "build:clean": "rimraf ./dist-ng ./dist",
     "build:ng": "ng build --prod --output-path ./dist-ng",
     "build:nw": "build --tasks mac-x64 --mirror https://dl.nwjs.io/ .",
-    "build:win": "npm run build:ng && build --tasks win-x86 --mirror https://dl.nwjs.io/ .",
+    "build:win": "npm run build:ng && build --tasks win-x64 --mirror https://dl.nwjs.io/ .",
     "run:win": "dist\\nw-angular-1.1.0-win-x86\\nw-angular.exe",
     "generate": "ng generate",
     "test": "ng test",
@@ -90,8 +90,8 @@
   },
   "chromium-args": "--enable-spell-checking",
   "build": {
-    "nwVersion": "v0.45.6",
-    "nwFlavor": "sdk",
+    "nwVersion": "v0.46.0",
+    "nwFlavor": "normal",
     "targets": [
       "zip",
       "nsis7z"
