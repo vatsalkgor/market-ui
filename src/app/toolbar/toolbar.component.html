@@ -1,0 +1,39 @@
+<mat-toolbar color="primary">
+  <button mat-button><mat-icon>home</mat-icon></button>
+  <button mat-button [matMenuTriggerFor]="addition">Addition</button>
+  <mat-menu #addition="matMenu" yPosition="below">
+    <button mat-menu-item>Party</button>
+    <button mat-menu-item>Group</button>
+    <button mat-menu-item>Item</button>
+  </mat-menu>
+  <button mat-button [matMenuTriggerFor]="voucher">Voucher</button>
+  <mat-menu #voucher="matMenu" yPosition="below">
+    <button mat-menu-item>Buy</button>
+    <button mat-menu-item>Sell</button>
+    <button mat-menu-item>Payment</button>
+    <button mat-menu-item>Caret</button>
+  </mat-menu>
+  <button mat-button [matMenuTriggerFor]="reports">Reports</button>
+  <mat-menu #reports="matMenu" yPosition="below">
+    <button mat-menu-item>Customer Bill</button>
+    <button mat-menu-item>Farmer Bill</button>
+    <button mat-menu-item>Daily Report</button>
+    <button mat-menu-item>Personwise</button>
+    <button mat-menu-item>Caret</button>
+    <button mat-menu-item>Account Information</button>
+    <button mat-menu-item>Black List</button>
+  </mat-menu>
+  <button mat-button [matMenuTriggerFor]="logs">Logs</button>
+  <mat-menu #logs="matMenu" yPosition="below">
+    <button mat-menu-item>Payment</button>
+    <button mat-menu-item>Login/Logout</button>
+  </mat-menu>
+  <span class="spacer"></span>
+  <button mat-button matTooltip="Settings">
+    <mat-icon>settings</mat-icon>
+  </button>
+  <button mat-button matTooltip="Logout">
+    <mat-icon>exit_to_app</mat-icon>
+  </button>
+</mat-toolbar>
+<p>Dashboard here</p>

@@ -34,7 +34,7 @@
     "build:clean": "rimraf ./dist-ng ./dist",
     "build:ng": "ng build --prod --output-path ./dist-ng",
     "build:nw": "build --tasks mac-x64 --mirror https://dl.nwjs.io/ .",
-    "build:win": "npm run build:ng && build --tasks win-x86 --mirror https://dl.nwjs.io/ .",
+    "build:win": "npm run build:ng && build --tasks win-x64 --mirror https://dl.nwjs.io/ .",
     "run:win": "dist\\nw-angular-1.1.0-win-x86\\nw-angular.exe",
     "generate": "ng generate",
     "test": "ng test",
@@ -50,6 +50,7 @@
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.900.6",
     "@angular/animations": "~9.0.6",
+    "@angular/cdk": "^9.2.4",
     "@angular/cli": "~9.0.6",
     "@angular/common": "~9.0.6",
     "@angular/compiler": "~9.0.6",
@@ -57,6 +58,7 @@
     "@angular/core": "~9.0.6",
     "@angular/forms": "~9.0.6",
     "@angular/language-service": "~9.0.6",
+    "@angular/material": "^9.2.4",
     "@angular/platform-browser": "~9.0.6",
     "@angular/platform-browser-dynamic": "~9.0.6",
     "@angular/router": "~9.0.6",
@@ -72,6 +74,7 @@
     "karma-coverage-istanbul-reporter": "~2.1.1",
     "karma-jasmine": "~3.1.1",
     "karma-jasmine-html-reporter": "^1.5.2",
+    "material-design-icons": "^3.0.1",
     "nw": "0.46.0-sdk",
     "nwjs-builder-phoenix": "^1.15.0",
     "nwjs-types": "^1.0.0",
@@ -87,8 +90,8 @@
   },
   "chromium-args": "--enable-spell-checking",
   "build": {
-    "nwVersion": "v0.45.6",
-    "nwFlavor": "sdk",
+    "nwVersion": "v0.46.0",
+    "nwFlavor": "normal",
     "targets": [
       "zip",
       "nsis7z"
