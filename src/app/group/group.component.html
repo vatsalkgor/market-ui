@@ -2,39 +2,41 @@
 <div flexLayout="row" flexLayoutAlign="start start">
   <div fxFlex="30" style="padding: 20px;">
     <mat-card>
-      <mat-card-title>New Party</mat-card-title>
+      <mat-card-title>New Group</mat-card-title>
       <mat-card-content>
         <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Party Name</mat-label>
-          <input matInput [(ngModel)]="name" name="name" required class="guj" />
-        </mat-form-field>
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Party Type</mat-label>
-          <mat-select [(ngModel)]="type">
-            <mat-option [value]="1">Customer</mat-option>
-            <mat-option [value]="2">Farmer</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Contact</mat-label>
-          <input matInput [(ngModel)]="contact" name="contact" />
-        </mat-form-field>
-        <mat-form-field appearance="fill" class="full-width">
-          <mat-label>Pending Amount</mat-label>
+          <mat-label>Group Name</mat-label>
           <input
             matInput
-            [(ngModel)]="pending_amount"
-            name="pending_amount"
+            [(ngModel)]="newGroup.name"
+            name="name"
             required
+            class="guj"
           />
         </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Farmer Commission</mat-label>
+          <input matInput [(ngModel)]="newGroup.fcom" name="fcom" required />
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Farmer Wage</mat-label>
+          <input matInput [(ngModel)]="newGroup.fwage" name="fwage" required />
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Customer Commission</mat-label>
+          <input matInput [(ngModel)]="newGroup.ccom" name="ccom" required />
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Customer Wage</mat-label>
+          <input matInput [(ngModel)]="newGroup.cwage" name="cwage" required />
+        </mat-form-field>
+        <p class="error" *ngIf="error">{{ error }}</p>
       </mat-card-content>
-
       <mat-card-actions fxLayout="row" fxLayoutAlign="end center">
         <button
           mat-raised-button
           color="primary"
-          (click)="insertParty()"
+          (click)="insertGroup()"
           disabled="{{ insert }}"
         >
           Save
@@ -42,7 +44,7 @@
         <button
           mat-raised-button
           color="primary"
-          (click)="updateParty()"
+          (click)="updateGroup()"
           disabled="{{ update }}"
         >
           Update
@@ -52,7 +54,7 @@
   </div>
   <div fxFlex="70" style="padding: 20px;">
     <mat-card>
-      <mat-card-title>All Parties</mat-card-title>
+      <mat-card-title>All Groups</mat-card-title>
       <mat-form-field>
         <mat-label>Filter</mat-label>
         <input
@@ -65,36 +67,40 @@
       <table mat-table [dataSource]="dataSource" style="width: 100%;">
         <ng-container matColumnDef="Name">
           <th mat-header-cell *matHeaderCellDef>Name</th>
-          <td mat-cell *matCellDef="let party" class="guj">
-            {{ party.name }}
+          <td mat-cell *matCellDef="let group" class="guj">
+            {{ group.name }}
           </td>
         </ng-container>
-        <ng-container matColumnDef="Type">
-          <th mat-header-cell *matHeaderCellDef>Type</th>
-          <td mat-cell *matCellDef="let party">
-            {{ party.type == 1 ? "Customer" : "Farmer" }}
+        <ng-container matColumnDef="Farmer Commission">
+          <th mat-header-cell *matHeaderCellDef>Farmer Commission</th>
+          <td mat-cell *matCellDef="let group">
+            {{ group.fcom }}
           </td>
         </ng-container>
-        <ng-container matColumnDef="Contact">
-          <th mat-header-cell *matHeaderCellDef>Contact</th>
-          <td mat-cell *matCellDef="let party">{{ party.contact }}</td>
+        <ng-container matColumnDef="Farmer Wage">
+          <th mat-header-cell *matHeaderCellDef>Farmer Wage</th>
+          <td mat-cell *matCellDef="let group">{{ group.fwage }}</td>
         </ng-container>
-        <ng-container matColumnDef="Pending Amount">
-          <th mat-header-cell *matHeaderCellDef>Pending Amount</th>
-          <td mat-cell *matCellDef="let party">{{ party.pending_amount }}</td>
+        <ng-container matColumnDef="Customer Commission">
+          <th mat-header-cell *matHeaderCellDef>Customer Commission</th>
+          <td mat-cell *matCellDef="let group">{{ group.ccom }}</td>
+        </ng-container>
+        <ng-container matColumnDef="Customer Wage">
+          <th mat-header-cell *matHeaderCellDef>Customer Wage</th>
+          <td mat-cell *matCellDef="let group">{{ group.cwage }}</td>
         </ng-container>
         <ng-container matColumnDef="Edit">
           <th mat-header-cell *matHeaderCellDef>Edit</th>
-          <td mat-cell *matCellDef="let party">
-            <button mat-icon-button color="primary" (click)="edit(party.id)">
+          <td mat-cell *matCellDef="let group">
+            <button mat-icon-button color="primary" (click)="edit(group.id)">
               <mat-icon>edit</mat-icon>
             </button>
           </td>
         </ng-container>
         <ng-container matColumnDef="Delete">
           <th mat-header-cell *matHeaderCellDef>Delete</th>
-          <td mat-cell *matCellDef="let party">
-            <button mat-icon-button color="warn" (click)="delete(party.id)">
+          <td mat-cell *matCellDef="let group">
+            <button mat-icon-button color="warn" (click)="delete(group.id)">
               <mat-icon>delete</mat-icon>
             </button>
           </td>
