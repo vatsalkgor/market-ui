@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { Party } from "../core/party.model";
 import { PartyService } from "../services/party.service";
 import { MatTableDataSource } from "@angular/material/table";
@@ -13,7 +13,8 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 export class PartyComponent implements OnInit {
   constructor(
     private partyService: PartyService,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    private elRef: ElementRef
   ) {}
 
   public name: string;
@@ -60,6 +61,7 @@ export class PartyComponent implements OnInit {
     this.partyService.insertParty(partyObject).subscribe((data) => {
       if (data == 1) {
         this.refreshParties();
+        this.elRef.nativeElement.querySelector("input[name='name']").focus();
         this.snackbar.open("Party Added!", "", {
           duration: 2000,
         });

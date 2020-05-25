@@ -10,6 +10,7 @@ import { LoginComponent } from "./login/login.component";
 import { ToolbarComponent } from "./toolbar/toolbar.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { PartyComponent } from './party/party.component';
+import { GroupComponent } from './group/group.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { PartyComponent } from './party/party.component';
     ToolbarComponent,
     DashboardComponent,
     PartyComponent,
+    GroupComponent,
   ],
   imports: [
     BrowserModule,

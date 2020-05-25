@@ -14,7 +14,7 @@
     ],
     "To turn spell checking off, remove the chromium-args from this file"
   ],
-  "name": "nw-angular",
+  "name": "VFly",
   "version": "1.2.0",
   "node-main": "api/backend",
   "main": "http://localhost:8964",
