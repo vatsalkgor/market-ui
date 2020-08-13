@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { Party } from "../core/party.model";
 import { PartyService } from "../services/party.service";
-import { MatTableDataSource } from "@angular/material/table";
-import { MatPaginator } from "@angular/material/paginator";
-import { MatSnackBar } from "@angular/material/snack-bar";
+import { Subject } from "rxjs";
+import { DataTableDirective } from "angular-datatables";
+import * as $ from "jquery";
 
 @Component({
   selector: "app-party",
@@ -11,64 +11,48 @@ import { MatSnackBar } from "@angular/material/snack-bar";
   styleUrls: ["./party.component.css"],
 })
 export class PartyComponent implements OnInit {
-  constructor(
-    private partyService: PartyService,
-    private snackbar: MatSnackBar,
-    private elRef: ElementRef
-  ) {}
+  constructor(private partyService: PartyService, private elRef: ElementRef) {}
 
-  public name: string;
-  public type: number;
-  public contact: string = "";
-  public pending_amount: number;
-  public updateId: number;
+  public party: any = {};
 
-  public insert: boolean = false;
-  public update: boolean = true;
-
-  public tableColumns: string[] = [
-    "Name",
-    "Type",
-    "Contact",
-    "Pending Amount",
-    "Edit",
-    "Delete",
-  ];
   public parties: Party[];
-
-  dataSource;
-
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  dtOptions: DataTables.Settings = {};
+  dtElement: DataTableDirective;
+  dtTrigger = new Subject();
+  isDtInitialized: boolean = false;
 
   private refreshParties() {
     this.partyService.getAllParties().subscribe((data) => {
       this.parties = data;
-      this.dataSource = new MatTableDataSource<Party>(this.parties);
-      this.dataSource.paginator = this.paginator;
+      // https://stackoverflow.com/a/59051036
+      if (this.isDtInitialized) {
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.destroy();
+          this.dtTrigger.next();
+        });
+      } else {
+        this.isDtInitialized = true;
+        this.dtTrigger.next();
+      }
     });
+    $("#update").attr("disabled", "true");
   }
+  @ViewChild(DataTableDirective, { static: false })
   ngOnInit(): void {
     this.refreshParties();
   }
+  ngAfterViewInit() {
+    $("input[type=search]").addClass("guj");
+  }
+  ngOnDestroy(): void {
+    this.dtTrigger.unsubscribe();
+  }
 
   public insertParty() {
-    const partyObject = {
-      name: this.name,
-      type: this.type,
-      contact: this.contact,
-      pending_amount: this.pending_amount,
-    };
-    this.partyService.insertParty(partyObject).subscribe((data) => {
+    this.partyService.insertParty(this.party).subscribe((data) => {
       if (data == 1) {
         this.refreshParties();
         this.elRef.nativeElement.querySelector("input[name='name']").focus();
-        this.snackbar.open("Party Added!", "", {
-          duration: 2000,
-        });
-      } else {
-        this.snackbar.open("Something went wrong! Please Retry.", "", {
-          duration: 2000,
-        });
       }
     });
   }
@@ -77,35 +61,19 @@ export class PartyComponent implements OnInit {
     let found = this.parties.find((element) => {
       return element.id == id;
     });
-    this.updateId = found.id;
-    this.name = found.name;
-    this.type = found.type;
-    this.contact = found.contact;
-    this.pending_amount = found.pending_amount;
-    this.insert = true;
-    this.update = false;
+    this.party = found;
+    $("#update").removeAttr("disabled");
+    $("#insert").attr("disabled", "true");
   }
 
   public updateParty() {
-    const partyObject = {
-      id: this.updateId,
-      name: this.name,
-      type: this.type,
-      contact: this.contact,
-      pending_amount: this.pending_amount,
-    };
-    this.partyService.updateParty(partyObject).subscribe((data) => {
+    this.partyService.updateParty(this.party).subscribe((data) => {
       if (data == 1) {
         this.refreshParties();
-        this.insert = !this.insert;
-        this.update = !this.update;
-        this.snackbar.open("Party Changed!", "", {
-          duration: 2000,
-        });
+        $("#insert").removeAttr("disabled");
+        $("#update").attr("disabled", "true");
+        this.party = {};
       } else {
-        this.snackbar.open("Something went wrong! Please Retry.", "", {
-          duration: 2000,
-        });
       }
     });
   }
@@ -114,19 +82,8 @@ export class PartyComponent implements OnInit {
     this.partyService.deleteParty(id).subscribe((data) => {
       if (data == 1) {
         this.refreshParties();
-        this.snackbar.open("Party Deleted!", "", {
-          duration: 2000,
-        });
       } else {
-        this.snackbar.open("Something went wrong! Please Retry.", "", {
-          duration: 2000,
-        });
       }
     });
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

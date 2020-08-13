@@ -5,6 +5,9 @@
 p {
   font-size: 18px;
 }
-.full-width {
-  width: 100%;
+.dataTables_filter > label > input {
+  font-family: "Saumilguj2";
+}
+.btn {
+  margin-right: 5px;
 }

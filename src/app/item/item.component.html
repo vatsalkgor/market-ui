@@ -1,0 +1,62 @@
+<app-toolbar></app-toolbar>
+<div flexLayout="row" flexLayoutAlign="start start">
+  <div fxFlex="30" style="padding: 20px;">
+    <mat-card>
+      <mat-card-title>New Item</mat-card-title>
+      <mat-card-content>
+        <form>
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Item Name</mat-label>
+            <input
+              matInput
+              [(ngModel)]="newItem.name"
+              name="name"
+              required
+              class="guj"
+            />
+          </mat-form-field>
+          <mat-label>Item Group</mat-label>
+          <ng-select2 [data]="groups"></ng-select2>
+          <!-- <input
+              matInput
+              [formControl]="myControl"
+              [ngControl]="myControl"
+              [matAutocomplete]="auto"
+              class="guj"
+              [(ngModel)]="newItem.group"
+              name="group"
+            />
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option
+                class="guj"
+                *ngFor="let group of filteredGroups | async"
+                [value]="group.id"
+              >
+                {{ group.name }}
+              </mat-option>
+            </mat-autocomplete> -->
+        </form>
+        <p class="error" *ngIf="error">{{ error }}</p>
+      </mat-card-content>
+      <mat-card-actions fxLayout="row" fxLayoutAlign="end center">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="insertItem()"
+          disabled="{{ insert }}"
+        >
+          Save
+        </button>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="updateGroup()"
+          disabled="{{ update }}"
+        >
+          Update
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  <div fxFlex="70" style="padding: 20px;"></div>
+</div>

@@ -1,38 +1,102 @@
-<mat-toolbar color="primary">
-  <button mat-button routerLink="/dashboard"><mat-icon>home</mat-icon></button>
-  <button mat-button [matMenuTriggerFor]="addition">Addition</button>
-  <mat-menu #addition="matMenu" yPosition="below">
-    <button mat-menu-item routerLink="/party">Party</button>
-    <button mat-menu-item routerLink="/group">Group</button>
-    <button mat-menu-item>Item</button>
-  </mat-menu>
-  <button mat-button [matMenuTriggerFor]="voucher">Voucher</button>
-  <mat-menu #voucher="matMenu" yPosition="below">
-    <button mat-menu-item>Buy</button>
-    <button mat-menu-item>Sell</button>
-    <button mat-menu-item>Payment</button>
-    <button mat-menu-item>Caret</button>
-  </mat-menu>
-  <button mat-button [matMenuTriggerFor]="reports">Reports</button>
-  <mat-menu #reports="matMenu" yPosition="below">
-    <button mat-menu-item>Customer Bill</button>
-    <button mat-menu-item>Farmer Bill</button>
-    <button mat-menu-item>Daily Report</button>
-    <button mat-menu-item>Personwise</button>
-    <button mat-menu-item>Caret</button>
-    <button mat-menu-item>Account Information</button>
-    <button mat-menu-item>Black List</button>
-  </mat-menu>
-  <button mat-button [matMenuTriggerFor]="logs">Logs</button>
-  <mat-menu #logs="matMenu" yPosition="below">
-    <button mat-menu-item>Payment</button>
-    <button mat-menu-item>Login/Logout</button>
-  </mat-menu>
-  <span class="spacer"></span>
-  <button mat-button matTooltip="Settings">
-    <mat-icon>settings</mat-icon>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <!-- Brand -->
+  <a class="navbar-brand" routerLink="/dashboard">HOME</a>
+  <!-- Toogler -->
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#collapsibleNavbar"
+  >
+    <span class="navbar-toggler-icon"></span>
   </button>
-  <button mat-button matTooltip="Logout">
-    <mat-icon>exit_to_app</mat-icon>
-  </button>
-</mat-toolbar>
+  <!-- Links -->
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="navbardrop"
+          data-toggle="dropdown"
+        >
+          Addition
+        </a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" routerLink="/party">Party</a>
+          <a class="dropdown-item" routerLink="/group">Item Group</a>
+          <a class="dropdown-item" routerLink="/item">Item Name</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="navbardrop"
+          data-toggle="dropdown"
+        >
+          Voucher
+        </a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="new_buy.php">Buy</a>
+          <a class="dropdown-item" href="new_sell.php">Sell</a>
+          <a class="dropdown-item" href="new_payment.php">Payment Entry</a>
+          <a class="dropdown-item" href="new_caret.php">Caret Entry</a>
+        </div>
+      </li>
+
+      <!-- Dropdown -->
+      <li class="nav-item dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="navbardrop"
+          data-toggle="dropdown"
+        >
+          Reports
+        </a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="customer_bill_report.php"
+            >Customer Bill Reports</a
+          >
+          <a class="dropdown-item" href="farmer_bill_report.php"
+            >Farmer Bill Reports</a
+          >
+          <a class="dropdown-item" href="daily_report.php">Daily Reports</a>
+          <a class="dropdown-item" href="person_wise_report.php"
+            >Person Wise Reports</a
+          >
+          <a class="dropdown-item" href="caret_report.php">Caret Reports</a>
+          <a class="dropdown-item" href="account_info.php"
+            >Account Information</a
+          >
+          <a class="dropdown-item" href="blacklist.php">Blacklist Report</a>
+        </div>
+      </li>
+      <li class="nav-item pull-right">
+        <a class="nav-link" href="settings.php">Settings</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="navbardrop"
+          data-toggle="dropdown"
+        >
+          Logs
+        </a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="log_login.php">Login/Logout</a>
+          <a class="dropdown-item" href="log_payment.php">Payment</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="change_pass.php">Change My Password</a>
+      </li>
+
+      <li class="nav-item pull-right">
+        <a class="nav-link" href="logout.php">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
